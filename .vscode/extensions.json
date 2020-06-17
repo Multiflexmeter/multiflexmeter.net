@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "ikappas.phpcs",
+    "bmewburn.vscode-intelephense-client",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "mhmadhamster.postcss-language",
+    "bradlc.vscode-tailwindcss"
+  ]
+}
