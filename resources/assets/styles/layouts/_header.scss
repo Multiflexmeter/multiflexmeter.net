@@ -1,2 +1,26 @@
-// TODO: .banner .nav li {}
-// TODO: .banner .nav a {}
+@screen md {
+  .has-submenu {
+    @apply relative;
+
+    & > .submenu {
+      @apply absolute hidden;
+
+      // Nested submenus must appear shifted to the right
+      .submenu {
+        @apply w-full -mt-12 left-full;
+      }
+    }
+
+    &:hover > .submenu {
+      @apply flex flex-col;
+    }
+  }
+}
+
+.nav-link {
+  @apply block py-3 px-4 transition duration-100 ease-in;
+
+  &:hover {
+    @apply bg-gray-200;
+  }
+}

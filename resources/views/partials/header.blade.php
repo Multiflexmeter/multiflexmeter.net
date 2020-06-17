@@ -1,10 +1,30 @@
-<header class="banner">
-  <div class="container">
-    <a class="brand" href="{{ home_url('/') }}">{{ get_bloginfo('name', 'display') }}</a>
-    <nav class="nav-primary">
-      @if (has_nav_menu('primary_navigation'))
-        {!! wp_nav_menu(['theme_location' => 'primary_navigation', 'menu_class' => 'nav']) !!}
-      @endif
-    </nav>
+<!-- Header -->
+<header class="relative border-b-1">
+  <!-- Branding -->
+  <div class="absolute h-full flex flex-row items-center px-4">
+    <a href="{{ home_url('/') }}">{{ get_bloginfo('name', 'display') }}</a>
+  </div>
+  <!-- Navigation bar -->
+  <div class="container mx-auto flex flex-row">
+    <a href="#" class="nav-link">Sample page</a>
+    <a href="#" class="nav-link">Sample page</a>
+    <!-- Nested nav item -->
+    <div class="has-submenu">
+      <a href="#" class="nav-link">Sample page</a>
+      <!-- Submenu -->
+      <div class="submenu">
+        <a href="#" class="nav-link">Sample page</a>
+        <a href="#" class="nav-link">Sample page</a>
+        <div class="has-submenu">
+          <a href="#" class="nav-link">Sample page</a>
+          <!-- Submenu -->
+          <div class="submenu">
+            <a href="#" class="nav-link">Sample page</a>
+            <a href="#" class="nav-link">Sample page</a>
+            <a href="#" class="nav-link">Sample page</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
