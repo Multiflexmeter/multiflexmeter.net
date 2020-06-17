@@ -1,11 +1,12 @@
 @import 'common/variables';
 
+/* purgecss start ignore */
 @tailwind base;
+@tailwind components;
+/* purgecss end ignore */
 
 /** Import everything from autoload */
 @import './autoload/**/*';
-
-@tailwind components;
 
 /**
  * Import npm dependencies
