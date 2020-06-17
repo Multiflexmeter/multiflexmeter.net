@@ -2,9 +2,8 @@
 
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const CleanPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const StyleLintPlugin = require('stylelint-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyGlobsPlugin = require('copy-globs-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
@@ -16,6 +15,7 @@ const assetsFilenames = config.enabled.cacheBusting
   : '[name]';
 
 let webpackConfig = {
+  mode: config.env.production ? 'production' : 'development',
   context: config.paths.assets,
   entry: config.entry,
   devtool: config.enabled.sourceMaps ? '#source-map' : undefined,
@@ -55,63 +55,64 @@ let webpackConfig = {
       {
         test: /\.js$/,
         exclude: [/node_modules(?![/|\\](bootstrap|foundation-sites))/],
-        use: [
-          { loader: 'cache' },
-          { loader: 'buble', options: { objectAssign: 'Object.assign' } },
-        ],
+        use: [{ loader: 'cache' }],
       },
       {
         test: /\.css$/,
         include: config.paths.assets,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style',
-          use: [
-            { loader: 'cache' },
-            {
-              loader: 'css',
-              options: { sourceMap: config.enabled.sourceMaps },
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              fallback: 'style',
             },
-            {
-              loader: 'postcss',
-              options: {
-                config: { path: __dirname, ctx: config },
-                sourceMap: config.enabled.sourceMaps,
-              },
+          },
+          { loader: 'cache' },
+          {
+            loader: 'css',
+            options: { sourceMap: config.enabled.sourceMaps },
+          },
+          {
+            loader: 'postcss',
+            options: {
+              config: { path: __dirname, ctx: config },
+              sourceMap: config.enabled.sourceMaps,
             },
-          ],
-        }),
+          },
+        ],
       },
       {
         test: /\.scss$/,
         include: config.paths.assets,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style',
-          use: [
-            { loader: 'cache' },
-            {
-              loader: 'css',
-              options: { sourceMap: config.enabled.sourceMaps },
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: { fallback: 'style' },
+          },
+          { loader: 'cache' },
+          {
+            loader: 'css',
+            options: { sourceMap: config.enabled.sourceMaps },
+          },
+          {
+            loader: 'postcss',
+            options: {
+              config: { path: __dirname, ctx: config },
+              sourceMap: config.enabled.sourceMaps,
             },
-            {
-              loader: 'postcss',
-              options: {
-                config: { path: __dirname, ctx: config },
-                sourceMap: config.enabled.sourceMaps,
-              },
+          },
+          {
+            loader: 'resolve-url',
+            options: { sourceMap: config.enabled.sourceMaps },
+          },
+          {
+            loader: 'sass',
+            options: {
+              sourceMap: false,
+              sassOptions: { sourceComments: true },
             },
-            {
-              loader: 'resolve-url',
-              options: { sourceMap: config.enabled.sourceMaps },
-            },
-            {
-              loader: 'sass',
-              options: {
-                sourceMap: config.enabled.sourceMaps,
-                sourceComments: true,
-              },
-            },
-          ],
-        }),
+          },
+        ],
       },
       {
         test: /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|svg|ico)$/,
@@ -145,8 +146,7 @@ let webpackConfig = {
     jquery: 'jQuery',
   },
   plugins: [
-    new CleanPlugin([config.paths.dist], {
-      root: config.paths.root,
+    new CleanWebpackPlugin({
       verbose: false,
     }),
     /**
@@ -159,7 +159,7 @@ let webpackConfig = {
       output: `[path]${assetsFilenames}.[ext]`,
       manifest: config.manifest,
     }),
-    new ExtractTextPlugin({
+    new MiniCssExtractPlugin({
       filename: `styles/${assetsFilenames}.css`,
       allChunks: true,
       disable: config.enabled.watcher,

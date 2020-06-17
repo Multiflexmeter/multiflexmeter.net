@@ -1,6 +1,7 @@
 const url = require('url');
+const path = require('path');
 const webpack = require('webpack');
-const BrowserSyncPlugin = require('browsersync-webpack-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 const config = require('./config');
 
@@ -27,11 +28,16 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new BrowserSyncPlugin({
-      target,
+      host: config.proxyUrl.split(':')[1],
+      port: config.proxyUrl.split(':')[2] || 3000,
+      proxy: target,
       open: config.open,
-      proxyUrl: config.proxyUrl,
-      watch: config.watch,
-      delay: 500,
+      reloadDelay: 500,
+      files: config.watch.map((p) => path.join(config.paths.root, p)),
+      watch: true,
+      watchOptions: {
+        cwd: config.paths.root,
+      },
     }),
   ],
 };
