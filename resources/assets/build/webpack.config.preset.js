@@ -4,7 +4,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const config = require('./config');
 
-console.log(config.paths.root);
+/** Default PostCSS plugins */
+let postcssPlugins = [
+  require('tailwindcss')(
+    path.join(config.paths.assets, 'styles/tailwind.config.js')
+  ),
+  require('autoprefixer')(),
+];
+
 const purgecss = require('@fullhuman/postcss-purgecss')({
   // Specify the paths to all of the template files in your project
   content: [`${config.paths.root}/**/*.php`],
@@ -21,14 +28,8 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
   },
 });
 
-/** Default PostCSS plugins */
-let postcssPlugins = [
-  require('tailwindcss')(
-    path.join(config.paths.assets, 'styles/tailwind.config.js')
-  ),
-  require('autoprefixer')(),
-  purgecss,
-];
+/** Add purgecss when optimizing */
+config.enabled.optimize ? postcssPlugins.push(purgecss) : false;
 
 /** Add cssnano when optimizing */
 config.enabled.optimize
