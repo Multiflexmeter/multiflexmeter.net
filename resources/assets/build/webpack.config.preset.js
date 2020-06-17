@@ -1,5 +1,5 @@
 'use strict'; // eslint-disable-line
-
+const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const config = require('./config');
@@ -23,7 +23,9 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
 
 /** Default PostCSS plugins */
 let postcssPlugins = [
-  require('tailwindcss'),
+  require('tailwindcss')(
+    path.join(config.paths.assets, 'styles/tailwind.config.js')
+  ),
   require('autoprefixer')(),
   purgecss,
 ];
