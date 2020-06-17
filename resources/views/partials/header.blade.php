@@ -1,8 +1,8 @@
 <!-- Header -->
 <header class="relative border-b-1">
   <!-- Branding -->
-  <div class="absolute h-full flex flex-row items-center px-4">
-    <a href="{{ home_url('/') }}">{{ get_bloginfo('name', 'display') }}</a>
+  <div class="absolute h-full flex flex-row items-center px-4 py-3">
+    <a href="{{ home_url('/') }}" class="h-full"><img src="@asset('images/logo-liggend.png')" alt="{{ get_bloginfo('name', 'display') }}" class="h-full"></a>
   </div>
   <!-- Navigation bar -->
   <div class="container mx-auto flex flex-row">
