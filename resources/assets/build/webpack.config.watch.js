@@ -6,6 +6,9 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const config = require('./config');
 
 const target = process.env.DEVURL || config.devUrl;
+const [, host, port] = /(?:https?:\/\/)?([a-z0-9\-_.]+)(?::(\d+))?/gi.exec(
+  config.proxyUrl
+);
 
 /**
  * We do this to enable injection over SSL.
@@ -28,8 +31,8 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new BrowserSyncPlugin({
-      host: config.proxyUrl.split(':')[1],
-      port: config.proxyUrl.split(':')[2] || 3000,
+      host,
+      port,
       proxy: target,
       open: config.open,
       reloadDelay: 500,
