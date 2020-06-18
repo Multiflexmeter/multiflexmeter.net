@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.minimal')
 
 @section('content')
-  @php the_post() @endphp
+@php the_post() @endphp
 
-  <strong>hello world!</strong>
+<img src="@asset('images/peilschaal.png')" alt="">
 
-  {!! get_the_posts_navigation() !!}
+{!! get_the_posts_navigation() !!}
 @endsection
