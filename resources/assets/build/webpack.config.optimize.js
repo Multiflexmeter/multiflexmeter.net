@@ -20,13 +20,13 @@ module.exports = {
         ],
       },
       plugins: [imageminMozjpeg({ quality: 75 })],
-      disable: (config.enabled.watcher),
+      disable: config.enabled.watcher,
     }),
     new UglifyJsPlugin({
       uglifyOptions: {
         ecma: 5,
+        warnings: true,
         compress: {
-          warnings: true,
           drop_console: true,
         },
       },
