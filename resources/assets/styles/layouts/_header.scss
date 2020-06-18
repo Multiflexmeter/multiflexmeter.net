@@ -1,3 +1,8 @@
+header {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
 .navbar {
   @apply hidden flex-col justify-between bg-primary;
 }
@@ -28,8 +33,7 @@
 
 @screen md {
   .navbar {
-    @apply mx-auto flex flex-row;
-    background: none;
+    @apply mx-auto flex flex-row bg-white;
     // Override jQuery's slideToggle when moving from sm to md+
     display: flex !important;
   }
@@ -39,7 +43,7 @@
   }
 
   .nav-link {
-    @apply transition duration-100 ease-in text-gray-900 text-center whitespace-no-wrap;
+    @apply transition duration-100 ease-in text-gray-900 text-center whitespace-no-wrap bg-white;
 
     &:hover {
       @apply bg-gray-200;
@@ -66,7 +70,7 @@
 
       // Nested submenus must appear shifted to the right
       .submenu {
-        @apply -mt-16 left-full;
+        @apply left-full top-0;
       }
     }
 
