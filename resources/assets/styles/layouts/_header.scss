@@ -1,26 +1,76 @@
+.navbar {
+  @apply flex flex-col justify-between bg-primary;
+}
+
+.branding {
+  background: rgb(0, 172, 224);
+  background: linear-gradient(
+    45deg,
+    rgba(0, 172, 224, 1) 0%,
+    rgba(0, 118, 184, 1) 100%
+  );
+}
+
+.nav-link {
+  @apply block py-5 px-4 text-white text-left;
+  min-width: 7rem;
+}
+
+.has-submenu {
+  .submenu.submenu-shown {
+    @apply block;
+  }
+  .submenu {
+    @apply hidden w-full pl-3;
+  }
+}
+
 @screen md {
+  .navbar {
+    @apply mx-auto flex-row;
+    background: none;
+    // Override jQuery's slideToggle when moving from sm to md+
+    display: flex !important;
+  }
+
+  .branding {
+    background: none;
+  }
+
+  .nav-link {
+    @apply transition duration-100 ease-in text-gray-900 text-center whitespace-no-wrap;
+
+    &:hover {
+      @apply bg-gray-200;
+    }
+
+    &.active {
+      @apply bg-primary text-white;
+    }
+  }
+
   .has-submenu {
     @apply relative;
+
+    .submenu {
+      @apply pl-0 w-auto;
+
+      .nav-link {
+        @apply text-left;
+      }
+    }
 
     & > .submenu {
       @apply absolute hidden;
 
       // Nested submenus must appear shifted to the right
       .submenu {
-        @apply w-full -mt-12 left-full;
+        @apply -mt-12 left-full;
       }
     }
 
     &:hover > .submenu {
       @apply flex flex-col;
     }
-  }
-}
-
-.nav-link {
-  @apply block py-3 px-4 transition duration-100 ease-in;
-
-  &:hover {
-    @apply bg-gray-200;
   }
 }

@@ -5,6 +5,9 @@ module.exports = {
       inset: {
         full: '100%',
       },
+      colors: {
+        primary: '#00ACE0',
+      },
     },
   },
   variants: {},
