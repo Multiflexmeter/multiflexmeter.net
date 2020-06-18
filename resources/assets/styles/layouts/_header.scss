@@ -12,11 +12,12 @@
 }
 
 .nav-link {
-  @apply block py-5 px-4 text-white text-left;
+  @apply block py-4 px-4 text-white text-left;
   min-width: 7rem;
 }
 
 .has-submenu {
+  // Only functions on mobile
   .submenu.submenu-shown {
     @apply block;
   }
