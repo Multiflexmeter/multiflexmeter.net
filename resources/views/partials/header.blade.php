@@ -12,24 +12,14 @@
   <nav class="navbar container">
     <!-- Left component -->
     <div class="md:flex flex-row">
-      <a href="#" class="nav-link active">Home</a>
-      <a href="#" class="nav-link">News</a>
-      <div class="has-submenu">
-        <a href="#" class="nav-link">Projects</a>
-        <div class="submenu">
-          <a href="#" class="nav-link">MFM V4</a>
-          <a href="#" class="nav-link">EC-Sensor</a>
-          <a href="#" class="nav-link">Discrete Level</a>
-        </div>
-      </div>
-      <div class="has-submenu">
-        <a href="#" class="nav-link">Contact</a>
-        <div class="submenu">
-          <a href="#" class="nav-link">Information</a>
-          <a href="#" class="nav-link">Innovationcentrum</a>
-          <a href="#" class="nav-link">Privacy</a>
-        </div>
-      </div>
+      <?php
+      wp_nav_menu(array(
+        'menu' => 'primary_navigation',
+        'walker' => new App\NavigationWalker(),
+        'container' => '',
+        'items_wrap' => '%3$s'
+      ));
+      ?>
     </div>
     <!-- Right component -->
     <div class="md:flex flex-row items-right">

@@ -4,5 +4,8 @@
   "scss.validate": false,
   "emmet.includeLanguages": {
     "php": "html"
-  }
+  },
+  "intelephense.stubs": ["standard", "wordpress"],
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true
 }

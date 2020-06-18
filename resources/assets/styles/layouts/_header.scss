@@ -1,13 +1,13 @@
 .navbar {
-  @apply flex flex-col justify-between bg-primary;
+  @apply hidden flex-col justify-between bg-primary;
 }
 
 .branding {
-  background: rgb(0, 172, 224);
+  background: theme('colors.primary-darker');
   background: linear-gradient(
     45deg,
-    rgba(0, 172, 224, 1) 0%,
-    rgba(0, 118, 184, 1) 100%
+    theme('colors.primary') 0%,
+    theme('colors.primary-darker') 100%
   );
 }
 
@@ -27,7 +27,7 @@
 
 @screen md {
   .navbar {
-    @apply mx-auto flex-row;
+    @apply mx-auto flex flex-row;
     background: none;
     // Override jQuery's slideToggle when moving from sm to md+
     display: flex !important;
@@ -65,7 +65,7 @@
 
       // Nested submenus must appear shifted to the right
       .submenu {
-        @apply -mt-12 left-full;
+        @apply -mt-16 left-full;
       }
     }
 
