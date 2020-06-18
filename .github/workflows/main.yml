@@ -25,21 +25,25 @@ jobs:
     # Setup composer for dependencies
     - name: Composer Action
       uses: MilesChou/composer-action@v1.0.2
+      with:
+        args: install
   
     # Setup node.js to acces Yarn
     - name: Setup Node.js environment
       uses: actions/setup-node@v1.4.2
     
     - name: Install dev dependencies
-      run: composer install && yarn install
+      run: yarn install
     
     - name: Build distribution
       run: yarn build:production
-      
+  
+    # prepare deps for prod
     - name: Prepare dependencies for production
-      run: |
-        rm -rf node_modules
-        composer install --no-dev
+      run: rm -rf node_modules
+    - uses: MilesChou/composer-action@v1.0.2
+      with:
+        args: install --no-dev
     
     - name: FTP Deploy
       uses: SamKirkland/FTP-Deploy-Action@3.1.1
@@ -47,6 +51,3 @@ jobs:
         ftp-server: ftp://multiflexmeter.net:22/public_html/wp-content/themes/multiflexmeter
         ftp-username: githubcicd@multiflexmeter.net
         ftp-password: ${{ secrets.FTP_PASSWORD }}
-      
-    
-      
