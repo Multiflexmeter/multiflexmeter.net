@@ -50,3 +50,4 @@ jobs:
           ftp-server: ftp://multiflexmeter.net:21/public_html/wp-content/themes/multiflexmeter/
           ftp-username: githubcicd@multiflexmeter.net
           ftp-password: ${{ secrets.FTP_PASSWORD }}
+          git-ftp-args: --silent
